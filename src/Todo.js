@@ -31,8 +31,11 @@ function Todo() {
     mytext,
     bsubmit,
     input,
+    setinput,
   };
 }
 
 export default Todo;
+
+
 
