@@ -1,23 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Todo from "../src/Todo";
+import React, { useState } from "react";
 
 function App() {
+  const { bsettoggle, toggle, mytext, bsubmit, input } = Todo();
+  const [completed, setCompleted] = useState([]);
+
+  const handleCheckboxChange = (index) => {
+    const newCompleted = [...completed];
+    if (newCompleted.includes(index)) {
+      //newCompleted.splice(newCompleted.indexOf(index), 1);
+    } else {
+      newCompleted.push(index);
+    }
+    setCompleted(newCompleted);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2 style={{ textAlign: "center" }}>Todo App</h2>
+
+      {toggle && (
+        <input
+          type="text"
+          placeholder="Enter todo"
+          style={{ marginLeft: "20px", marginTop: "40px" }}
+          onChange={mytext}
+        />
+      )}
+      {toggle && <button onClick={bsubmit}>Submit</button>}
+
+      {toggle && (
+        <input
+          type="text"
+          placeholder="Search todo"
+          style={{ marginLeft: "200px", marginTop: "40px" }}
+        />
+      )}
+      <button style={{ marginLeft: "200px" }} onClick={bsettoggle}>
+        +
+      </button>
+
+      {input.map((item, index) => {
+        return (
+          <li
+            key={index}
+            className={completed.includes(index) ? "completed" : ""}
+          >
+            {index}-{item}{" "}
+            <input
+              type="checkbox"
+              onChange={() => handleCheckboxChange(index)}
+              // checked={completed.includes(index)}
+            />
+          </li>
+        );
+      })}
+
+      <h2>Completed Todos are</h2>
+      {input.map((item, index) => {
+        if (completed.includes(index)) {
+          return (
+            <li key={index}>
+              {index}-{item}
+            </li>
+          );
+        } else {
+          return null;
+        }
+      })}
     </div>
   );
 }
