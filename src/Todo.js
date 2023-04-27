@@ -11,6 +11,7 @@ function Todo() {
   };
   const bsubmit = () => {
     console.log("input is :", input);
+
     // var a = input.length + 1;
     // var b = text;
     // var c = a + b;
@@ -18,7 +19,9 @@ function Todo() {
     // console.log("s", a);
     setinput((old) => {
       return [...input, text];
+
     });
+
   };
   //console.log("text is ,",input);
   const mytext = (e) => {
@@ -36,6 +39,3 @@ function Todo() {
 }
 
 export default Todo;
-
-
-
