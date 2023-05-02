@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 function Todo() {
   const [toggle, settoggle] = useState(false);
-  const [input, setinput] = useState([]);
+  const [todo, settodo] = useState([]);
   const [text, settext] = useState("");
   const bsettoggle = (e) => {
     settoggle(!toggle);
@@ -12,12 +12,12 @@ function Todo() {
   };
 
   const bsubmit = () => {
-    setinput((old) => [...old, text]);
+    settodo((old) => [...old, text]);
     settext("");
   };
   useEffect(() => {
-    console.log("length  of input is :", input.length);
-  }, [input]);
+    console.log("length  of todo is :", todo.length);
+  }, [todo]);
 
   return {
     toggle,
@@ -25,8 +25,8 @@ function Todo() {
     bsettoggle,
     mytext,
     bsubmit,
-    input,
-    setinput,
+    todo,
+    settodo,
     text,
   };
 }

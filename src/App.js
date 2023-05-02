@@ -2,10 +2,10 @@ import Todo from "../src/Todo";
 import React, { useState } from "react";
 
 const App = () => {
-  const { mytext, bsubmit, input, text,setinput } = Todo();
+  const { mytext, bsubmit, todo, text,setinput } = Todo();
   const [completed, setCompleted] = useState([]);
   const [mysearch, setsearch] = useState("");
-  const [filteredInput, setFilteredInput] = useState(input);
+  const [filteredInput, setFilteredInput] = useState(todo);
 
   const handleCheckboxChange = (index) => {
     const newCompleted = [...completed];
@@ -17,7 +17,7 @@ const App = () => {
     setCompleted(newCompleted);
     
   };
-  console.log("input is :",input);
+  console.log("input is :",todo);
 
   
 
@@ -30,7 +30,7 @@ const App = () => {
       return;
     }
 
-    const filteredItems = input.filter((item) =>
+    const filteredItems = todo.filter((item) =>
       item.toLowerCase().includes(value.trim().toLowerCase())
     );
     setFilteredInput(filteredItems);
@@ -66,16 +66,16 @@ const App = () => {
         </div>
         <br />
         <h3>Todos</h3>
-        {input.length === 0 ? (
+        {todo.length === 0 ? (
           <div>No record</div>
         ) : (
           <div>
-            {input.length === 0 ? (
+            {todo.length === 0 ? (
               "No record"
             ) : (
               <ol>
                 <div>
-                  {input.map((item, index) => (
+                  {todo.map((item, index) => (
                     <div>
                       {completed.includes(index) ? null : (
                         <div>
@@ -103,14 +103,18 @@ const App = () => {
         <h3>Completed Todos </h3>
         <ol>
           {completed.length > 0
-            ? input.map((item, index) => {
+            ? (   
+              <>
+              <ol>
+             { todo.map((item, index) => {
                 if (completed.includes(index)) {
                   return <li key={index}>{item}</li>;
                 } else {
                   return null;
                 }
-              })
-            : "No record"}
+              })}</ol>
+              </>
+           ) : "No record"}
         </ol>
       </div>
       <div className="col-md-4 mx-auto">
@@ -125,13 +129,13 @@ const App = () => {
         
           readonly
         />
-        <ul>
+       
           {filteredInput === 0
             ? "Search any Todo"
-            : filteredInput.map((item, index) => {
+            : ( <ol>  {filteredInput.map((item, index) => {
                 return <li key={index}>{item} </li>;
-              })}
-        </ul>
+              })}</ol>)}
+         
       </div>
     </div>
     </div>
