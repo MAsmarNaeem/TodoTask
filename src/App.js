@@ -1,9 +1,8 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import Todo from "../src/Todo";
 import React, { useState } from "react";
 
 const App = () => {
-  const { mytext, bsubmit, input, text } = Todo();
+  const { mytext, bsubmit, input, text,setinput } = Todo();
   const [completed, setCompleted] = useState([]);
   const [mysearch, setsearch] = useState("");
   const [filteredInput, setFilteredInput] = useState(input);
@@ -16,20 +15,11 @@ const App = () => {
       newCompleted.push(index);
     }
     setCompleted(newCompleted);
+    
   };
-  // const handleCheckboxChange = (index) => {
-  //   const newCompleted = [...completed];
-  //   if (newCompleted.includes(index)) {
-  //     newCompleted.splice(newCompleted.indexOf(index), 1);
-  //   } else {
-  //     newCompleted.push(index);
-  //   }
-  //   setCompleted(newCompleted);
+  console.log("input is :",input);
 
-  //   const newInput = [...input];
-  //   newInput.splice(index, 1);
-  //   setinput(newInput);
-  // };
+  
 
   const hlosearch = (e) => {
     const value = e.target.value;
@@ -47,24 +37,41 @@ const App = () => {
   };
 
   return (
-    <div className="row mx-3" style={{ marginTop: "20px" }}>
-      <h2 className="text-center mb-5">Todo App</h2>
-      <div className="col-md-5">
-        <input
-          type="text"
-          placeholder="Enter Text"
-          value={text}
-          onChange={mytext}
-        />
-        <button onClick={bsubmit}>+</button>
+    <div >
+   <div className="container text-center mt-5">
+         <h2>Todo App</h2>
+       
+         </div>
+    <div className="row mx-3 mt-5" style={{ marginTop: "20px" }}>
+
+      <div className="col-md-4 mx-auto">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            value={text}
+            onChange={mytext}
+            placeholder="Enter Todo"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+            onClick={bsubmit}
+          >
+            +
+          </button>
+        </div>
         <br />
+        <h3>Todos</h3>
         {input.length === 0 ? (
-          <div>Enter Todos</div>
+          <div>No record</div>
         ) : (
           <div>
-            <h3>Todos</h3>
-            {input.length === null ? (
-              <div>Enter Todos</div>
+            {input.length === 0 ? (
+              "No record"
             ) : (
               <ol>
                 <div>
@@ -92,22 +99,32 @@ const App = () => {
             <br />
           </div>
         )}
-        <br /> <br />
+        <br />
         <h3>Completed Todos </h3>
         <ol>
-          {" "}
-          {input.map((item, index) => {
-            if (completed.includes(index)) {
-              return <li key={index}>{item}</li>;
-            } else {
-              return null;
-            }
-          })}
+          {completed.length > 0
+            ? input.map((item, index) => {
+                if (completed.includes(index)) {
+                  return <li key={index}>{item}</li>;
+                } else {
+                  return null;
+                }
+              })
+            : "No record"}
         </ol>
       </div>
-      <div className="col-md-4">
-        <input type="text" placeholder="Search todo" onChange={hlosearch} />
-
+      <div className="col-md-4 mx-auto">
+        <input
+          class="form-control"
+       
+          onChange={hlosearch}
+          type="text"
+          placeholder="Search Todo"
+          aria-label="readonly input example"
+        
+        
+          readonly
+        />
         <ul>
           {filteredInput === 0
             ? "Search any Todo"
@@ -116,6 +133,7 @@ const App = () => {
               })}
         </ul>
       </div>
+    </div>
     </div>
   );
 };
