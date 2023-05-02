@@ -1,7 +1,6 @@
-
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import Todo from "../src/Todo";
+// import Todo from "../src/Todo";
+import Todo from "./Todo";
 import React, { useState } from "react";
 
 const App = () => {
@@ -29,7 +28,7 @@ const App = () => {
   };
   const hlosearch = (e) => {
     setsearch(e.target.value);
-    handleSearch()
+    handleSearch();
   };
 
   return (
@@ -42,32 +41,28 @@ const App = () => {
         <br />
 
         {input.length === 0 ? (
-          <div>Enter Todos</div>
+          <div>No ToDo's Found</div>
         ) : (
           <div>
             <h3>Todos</h3>
             {input.length === 0 ? (
-              <div>Enter Todos</div>
+              <div>No To Dos Found.</div>
             ) : (
-              <div>
-                {input.map((item, index) => (
-                  <div>
-                    {completed.includes(index) ? null : (
-                      <div>
-                        {" "}
-                        <li>
-                          <input
-                            type="checkbox"
-                            onChange={() => handleCheckboxChange(index)}
-                            checked={completed.includes(index)}
-                          />{" "}
-                          {item}
-                        </li>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <ol>
+                {input.map((item, index) =>
+                  completed.includes(index) ? null : (
+                    <li>
+                      <input
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(index)}
+                        checked={completed.includes(index)}
+                        className="ps-3"
+                      />
+                      <span className="ps-1">{item}</span>
+                    </li>
+                  )
+                )}
+              </ol>
             )}
 
             <br />
@@ -83,32 +78,22 @@ const App = () => {
         )}
       </div>
       <div className="col-md-4">
-       
-              
-        <input
-          type="text"
-          placeholder="Search todo"
-         
-          onChange={hlosearch}
-        />
-    
-      <ul >
-        { filteredInput==0? "Search any Todo" :   filteredInput.map((item, index) => {
-          return (
-            <li
-              key={index}
-              className={completed.includes(index) ? "completed" : ""}
-            >
-              {item}{" "}
-             
-            </li>
-          );
-        })}
-      </ul>
+        <input type="text" placeholder="Search todo" onChange={hlosearch} />
 
- 
-        
-        
+        <ul>
+          {filteredInput == 0
+            ? "Search any Todo"
+            : filteredInput.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={completed.includes(index) ? "completed" : ""}
+                  >
+                    {item}{" "}
+                  </li>
+                );
+              })}
+        </ul>
       </div>
     </div>
   );
