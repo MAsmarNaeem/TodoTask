@@ -1,9 +1,21 @@
 import Todo from "../src/Todo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { BsFillBackspaceFill } from "react-icons/bs";
+
+import "./App.css";
 
 const App = () => {
-  const { set_TOdo_Text_function, todoSubmit, todo, todotext } = Todo();
-  const [completed, setCompleted] = useState([]);
+  const { set_TOdo_Text_function, todoSubmit, todo, todotext, settodo } =
+    Todo();
+  const get_local_storage_data = () => {
+    let list = localStorage.getItem("itemscompleted");
+    if (list) {
+      return JSON.parse(localStorage.getItem("itemscompleted"));
+    } else {
+      return [];
+    }
+  };
+  const [completed, setCompleted] = useState(get_local_storage_data());
 
   const [filteredInput, setFilteredInput] = useState(todo);
 
@@ -17,6 +29,9 @@ const App = () => {
     setCompleted(newCompleted);
   };
   console.log("input is :", todo);
+  useEffect(() => {
+    localStorage.setItem("itemscompleted", JSON.stringify(completed));
+  }, [completed]);
   const searchTodo = (e) => {
     const value = e.target.value;
 
@@ -35,14 +50,25 @@ const App = () => {
       setFilteredInput(filteredItems);
     }
   };
+  const handleDeleteTodo = (index) => {
+    const newTodo = [...todo];
+    newTodo.splice(index, 1);
+    settodo(newTodo);
+  };
+
+  const handleDeleteTodocompleted = (index) => {
+    const newCompleted = [...completed];
+    newCompleted.splice(index, 1);
+    setCompleted(newCompleted);
+  };
 
   return (
     <div>
-      <div className="container text-center mt-5">
+      <div className="container-fluid text-center mt-5">
         <h2>Todo App</h2>
       </div>
       <div className="row container justify-content-center mx-5 mt-4">
-      <div className="col-md-4 ">
+        <div className="col-md-4 ">
           <input
             class="form-control"
             onChange={searchTodo}
@@ -98,14 +124,19 @@ const App = () => {
                       {completed.includes(index) ? null : (
                         <div>
                           {" "}
-                          <li>
+                          <li style={{ backgroundColor: "orange" }}>
                             <input
                               type="checkbox"
                               onChange={() => handleCheckboxChange(index)}
                               checked={completed.includes(index)}
                             />{" "}
                             {item}
+                            <BsFillBackspaceFill
+                              style={{ marginLeft: "250px" }}
+                              onClick={() => handleDeleteTodo(index)}
+                            />
                           </li>
+                          <br />
                         </div>
                       )}
                     </div>
@@ -127,7 +158,18 @@ const App = () => {
                 <ol>
                   {todo.map((item, index) => {
                     if (completed.includes(index)) {
-                      return <li key={index}>{item}</li>;
+                      return (
+                        <>
+                          <li key={index} style={{ backgroundColor: "red" }}>
+                            {item}{" "}
+                            <BsFillBackspaceFill
+                              style={{ marginLeft: "250px" }}
+                              onClick={() => handleDeleteTodocompleted(index)}
+                            />
+                          </li>{" "}
+                          <br />
+                        </>
+                      );
                     } else {
                       return null;
                     }
@@ -137,7 +179,6 @@ const App = () => {
             )}
           </ol>
         </div>
-       
       </div>
     </div>
   );
