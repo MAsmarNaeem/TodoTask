@@ -2,9 +2,9 @@ import Todo from "../src/Todo";
 import React, { useState } from "react";
 
 const App = () => {
-  const { set_TOdo_Text_function, todoSubmit, todo, todotext } = Todo();
+  const { mytext,todoSubmit, todo, text, setinput } = Todo();
   const [completed, setCompleted] = useState([]);
-
+  const [mysearch, setsearch] = useState("");
   const [filteredInput, setFilteredInput] = useState(todo);
 
   const handleCheckboxChange = (index) => {
@@ -20,6 +20,7 @@ const App = () => {
 
   const searchTodo = (e) => {
     const value = e.target.value;
+    setsearch(value);
 
     if (!value.trim()) {
       setFilteredInput([]);
@@ -43,8 +44,8 @@ const App = () => {
             <input
               type="text"
               class="form-control"
-              value={todotext}
-              onChange={set_TOdo_Text_function}
+              value={text}
+              onChange={mytext}
               placeholder="Enter Todo"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
@@ -94,7 +95,7 @@ const App = () => {
           <br />
           <h3>Completed Todos </h3>
           <ol style={{ marginLeft: "-30px" }}>
-            {completed.length === 0 ? (
+            {completed.length == 0 ? (
               "No record"
             ) : (
               <>

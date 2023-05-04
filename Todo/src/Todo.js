@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 function Todo() {
   const [toggle, settoggle] = useState(false);
   const [todo, settodo] = useState([]);
-  const [todotext, settodotext] = useState("");
+  const [text, settext] = useState("");
   const bsettoggle = (e) => {
     settoggle(!toggle);
   };
-  const set_TOdo_Text_function = (e) => {
-    settodotext(e.target.value);
+  const mytext = (e) => {
+    settext(e.target.value);
   };
 
   const todoSubmit = () => {
-    settodo((old) => [...old, todotext]);
-    settodotext("");
+    settodo((old) => [...old, text]);
+    settext("");
   };
   useEffect(() => {
     console.log("length  of todo is :", todo.length);
@@ -23,11 +23,11 @@ function Todo() {
     toggle,
     settoggle,
     bsettoggle,
-    set_TOdo_Text_function ,
+    mytext,
     todoSubmit,
     todo,
     settodo,
-    todotext,
+    text,
   };
 }
 
