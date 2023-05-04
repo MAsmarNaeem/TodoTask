@@ -17,7 +17,6 @@ const App = () => {
     setCompleted(newCompleted);
   };
   console.log("input is :", todo);
-
   const searchTodo = (e) => {
     const value = e.target.value;
 
@@ -29,7 +28,12 @@ const App = () => {
     const filteredItems = todo.filter((item) =>
       item.toLowerCase().includes(value.trim().toLowerCase())
     );
-    setFilteredInput(filteredItems);
+
+    if (filteredItems.length === 0) {
+      setFilteredInput(["Record not found"]);
+    } else {
+      setFilteredInput(filteredItems);
+    }
   };
 
   return (
@@ -37,7 +41,29 @@ const App = () => {
       <div className="container text-center mt-5">
         <h2>Todo App</h2>
       </div>
-      <div className="row mx-3 mt-5" style={{ marginTop: "20px" }}>
+      <div className="row container justify-content-center mx-5 mt-4">
+      <div className="col-md-4 ">
+          <input
+            class="form-control"
+            onChange={searchTodo}
+            type="text"
+            placeholder="Search Todo"
+            aria-label="readonly input example"
+          />
+
+          {filteredInput === 0 ? (
+            "Search any Todo"
+          ) : (
+            <>
+              {" "}
+              {filteredInput.map((item, index) => {
+                return <li key={index}>{item} </li>;
+              })}
+            </>
+          )}
+        </div>
+      </div>
+      <div className="row mx-3 mt-3" style={{ marginTop: "20px" }}>
         <div className="col-md-4 ">
           <div class="input-group mb-3">
             <input
@@ -111,26 +137,7 @@ const App = () => {
             )}
           </ol>
         </div>
-        <div className="col-md-4 ">
-          <input
-            class="form-control"
-            onChange={searchTodo}
-            type="text"
-            placeholder="Search Todo"
-            aria-label="readonly input example"
-          />
-
-          {filteredInput === 0 ? (
-            "Search any Todo"
-          ) : (
-            <ol>
-              {" "}
-              {filteredInput.map((item, index) => {
-                return <li key={index}>{item} </li>;
-              })}
-            </ol>
-          )}
-        </div>
+       
       </div>
     </div>
   );
