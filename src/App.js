@@ -124,7 +124,7 @@ const App = () => {
                       {completed.includes(index) ? null : (
                         <div>
                           {" "}
-                          <li style={{ backgroundColor: "orange" }}>
+                          <li style={{ }}>
                             <input
                               type="checkbox"
                               onChange={() => handleCheckboxChange(index)}
@@ -132,7 +132,7 @@ const App = () => {
                             />{" "}
                             {item}
                             <BsFillBackspaceFill
-                              style={{ marginLeft: "250px" }}
+                              style={{ marginLeft: "200px" }}
                               onClick={() => handleDeleteTodo(index)}
                             />
                           </li>
@@ -160,10 +160,10 @@ const App = () => {
                     if (completed.includes(index)) {
                       return (
                         <>
-                          <li key={index} style={{ backgroundColor: "red" }}>
+                          <li key={index} style={{  }}>
                             {item}{" "}
                             <BsFillBackspaceFill
-                              style={{ marginLeft: "250px" }}
+                              style={{ marginLeft: "200px" }}
                               onClick={() => handleDeleteTodocompleted(index)}
                             />
                           </li>{" "}
