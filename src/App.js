@@ -63,11 +63,11 @@ const App = () => {
   };
 
   return (
-    <div>
-      <div className="container-fluid text-center mt-5">
+    <div className="constainer-fluid">
+      <div className=" text-center mt-5">
         <h2>Todo App</h2>
       </div>
-      <div className="row container justify-content-center mx-5 mt-4">
+      <div className="row  justify-content-center mt-4">
         <div className="col-md-4 ">
           <input
             class="form-control"
@@ -124,7 +124,7 @@ const App = () => {
                       {completed.includes(index) ? null : (
                         <div>
                           {" "}
-                          <li style={{ }}>
+                          <li style={{}}>
                             <input
                               type="checkbox"
                               onChange={() => handleCheckboxChange(index)}
@@ -160,7 +160,7 @@ const App = () => {
                     if (completed.includes(index)) {
                       return (
                         <>
-                          <li key={index} style={{  }}>
+                          <li key={index} style={{}}>
                             {item}{" "}
                             <BsFillBackspaceFill
                               style={{ marginLeft: "200px" }}
