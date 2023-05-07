@@ -1,6 +1,6 @@
 import Todo from "../src/Todo";
 import React, { useState, useEffect } from "react";
-import { BsFillBackspaceFill } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
 
 import "./App.css";
 
@@ -131,7 +131,7 @@ const App = () => {
                               checked={completed.includes(index)}
                             />{" "}
                             {item}
-                            <BsFillBackspaceFill
+                            <FaTrash
                               style={{ marginLeft: "200px" }}
                               onClick={() => handleDeleteTodo(index)}
                             />
@@ -162,7 +162,7 @@ const App = () => {
                         <>
                           <li key={index} style={{}}>
                             {item}{" "}
-                            <BsFillBackspaceFill
+                            <FaTrash
                               style={{ marginLeft: "200px" }}
                               onClick={() => handleDeleteTodocompleted(index)}
                             />
